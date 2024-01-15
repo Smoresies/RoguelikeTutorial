@@ -55,3 +55,9 @@ func is_in_bounds(coordinate: Vector2i) -> bool:
 		and 0 <= coordinate.y
 		and coordinate.y < height
 	)
+
+func get_blocking_entity_at_location(grid_position: Vector2i) -> Entity:
+	for entity in entities:
+		if entity.is_blocking_movement() and entity.grid_position == grid_position:
+			return entity
+	return null

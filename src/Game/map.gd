@@ -14,7 +14,7 @@ extends Node2D
 var map_data: MapData
 
 # Creates map_data, then calls _place_tiles()
-func generate(player: Entity):
+func generate(player: Entity) -> void:
 	map_data = dungeon_generator.generate_dungeon(player)
 	_place_tiles()
 	_place_entities()
@@ -22,6 +22,9 @@ func generate(player: Entity):
 # Lets us just call FieldOfView's update easier
 func update_fov(player_position: Vector2i) -> void:
 	field_of_view.update_fov(map_data, player_position, fov_radius)
+	
+	for entity in map_data.entities:
+		entity.visible = map_data.get_tile(entity.grid_position).is_in_view
 
 # Attaches all the tiles in map_data to be children of Map node
 func _place_tiles() -> void:

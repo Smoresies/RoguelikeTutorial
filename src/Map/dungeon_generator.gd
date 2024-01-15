@@ -66,7 +66,7 @@ func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
 # Determine if this room will have any enemies/entities and add them
 func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 	# Randomly determine number of possible enemies
-	var number_of_monsters: int = _rng.randi_range(1, max_monster_per_room)
+	var number_of_monsters: int = _rng.randi_range(0, max_monster_per_room)
 	
 	for _i in number_of_monsters:
 		# Determine random X/Y position INSIDE OF ROOM to place them
@@ -82,7 +82,7 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 				break
 		
 		# If for some reason there is an entity in the same space, continue loop
-		if not cannot_place:
+		if cannot_place:
 			continue
 		
 		# if we can place, then we determine which type randomly and add
