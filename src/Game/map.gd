@@ -8,8 +8,8 @@ extends Node2D
 var map_data: MapData
 
 # Creates map_data, then calls _place_tiles()
-func _ready():
-	map_data = dungeon_generator.generate_dungeon()
+func generate(player: Entity):
+	map_data = dungeon_generator.generate_dungeon(player)
 	_place_tiles()
 
 # Attaches all the tiles in map_data to be children of Map node
