@@ -34,6 +34,11 @@ func get_tile(grid_position: Vector2i) -> Tile:
 		return null
 	return tiles[tile_index]
 
+# Wrapper for FoV tile checking, does same as get_tile but takes 2 ints
+func get_tile_xy(x: int, y: int) -> Tile:
+	var grid_position := Vector2i(x, y)
+	return get_tile(grid_position)
+
 # converts from grid position to an array position, Vector2i -> int
 func grid_to_index(grid_position: Vector2i) -> int:
 	if not is_in_bounds(grid_position):
