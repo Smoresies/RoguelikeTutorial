@@ -11,11 +11,13 @@ const tile_types = {
 var width: int
 var height: int
 var tiles: Array[Tile]
+var entities: Array[Entity]
 
 # Setup map sizes, then make tiles based on _setup_tiles()
 func _init(map_width: int, map_height: int) -> void:
 	width = map_width
 	height = map_height
+	entities = []
 	_setup_tiles()
 
 # Currently populates tiles array with floor, other than walls at a specific few points.

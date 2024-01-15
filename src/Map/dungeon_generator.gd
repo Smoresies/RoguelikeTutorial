@@ -11,8 +11,17 @@ extends Node
 @export var room_max_size: int = 10
 @export var room_min_size: int = 6
 
+@export_category("Monsters RNG")
+@export var max_monster_per_room: int = 2
+
 # Create some random number
 var _rng := RandomNumberGenerator.new()
+
+# define enemy types
+const entity_types = {
+	"orc": preload("res://assets/definitions/entities/actors/entity_definition_orc.tres"),
+	"troll": preload("res://assets/definitions/entities/actors/entity_definition_troll.tres"),
+}
 
 # On ready, just randomize
 func _ready() -> void:
@@ -54,9 +63,40 @@ func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
 		_tunnel_vertical(dungeon, start.x, start.y, end.y)
 		_tunnel_horizontal(dungeon, end.y, start.x, end.x)
 
+# Determine if this room will have any enemies/entities and add them
+func _place_entities(dungeon: MapData, room: Rect2i) -> void:
+	# Randomly determine number of possible enemies
+	var number_of_monsters: int = _rng.randi_range(1, max_monster_per_room)
+	
+	for _i in number_of_monsters:
+		# Determine random X/Y position INSIDE OF ROOM to place them
+		var x: int = _rng.randi_range(room.position.x + 1, room.end.x - 1)
+		var y: int = _rng.randi_range(room.position.y + 1, room.end.y - 1)
+		var new_entity_position := Vector2i(x, y)
+		
+		# Check to see if random position is already taken
+		var cannot_place = false
+		for entity in dungeon.entities:
+			if entity.grid_position == new_entity_position:
+				cannot_place = true
+				break
+		
+		# If for some reason there is an entity in the same space, continue loop
+		if not cannot_place:
+			continue
+		
+		# if we can place, then we determine which type randomly and add
+		var new_entity: Entity
+		if _rng.randf() < 0.8:
+			new_entity = Entity.new(new_entity_position, entity_types.orc)
+		else:
+			new_entity = Entity.new(new_entity_position, entity_types.troll)
+		dungeon.entities.append(new_entity)
+
 # Actually generate a dungeon, also places character in middle of first room 
 func generate_dungeon(player: Entity) -> MapData:
 	var dungeon := MapData.new(map_width, map_height)
+	dungeon.entities.append(player)
 	
 	var rooms: Array[Rect2i] = []
 	
@@ -95,6 +135,9 @@ func generate_dungeon(player: Entity) -> MapData:
 		# Create a tunnel between last room made and this one
 		else:
 			_tunnel_between(dungeon, rooms.back().get_center(), new_room.get_center())
+		
+		# Add any entities that would exist in this room.
+		_place_entities(dungeon, new_room)
 		
 		# Add newly made room to array
 		rooms.append(new_room)

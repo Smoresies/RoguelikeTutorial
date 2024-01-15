@@ -1,6 +1,9 @@
 class_name FieldOfView
 extends Node
 
+# THIS ENTIRE FILE IS TOO COMPLICATED TO UNDERSTAND
+# VERY FANCY TILE BASED FIELD OF VIEW USING SHADOWCASTING(?)
+
 const multipliers = [
 	[1, 0, 0, -1, -1, 0, 0, 1],
 	[0, 1, -1, 0, 0, -1, 1, 0],

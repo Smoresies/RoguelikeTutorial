@@ -7,7 +7,6 @@ const player_definition: EntityDefinition = preload(("res://assets/definitions/e
 # All variables that are defined/init before _ready()
 @onready var player: Entity
 @onready var event_handler: EventHandler = $EventHandler
-@onready var entities: Node2D = $Entities
 @onready var map: Map = $Map
 
 # Init all the things!
@@ -16,7 +15,6 @@ func _ready() -> void:
 	var camera: Camera2D = $Camera2D
 	remove_child(camera)
 	player.add_child(camera)
-	entities.add_child(player)
 	map.generate(player)
 	map.update_fov(player.grid_position)
 
