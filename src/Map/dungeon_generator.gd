@@ -88,9 +88,9 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 		# if we can place, then we determine which type randomly and add
 		var new_entity: Entity
 		if _rng.randf() < 0.8:
-			new_entity = Entity.new(new_entity_position, entity_types.orc)
+			new_entity = Entity.new(dungeon, new_entity_position, entity_types.orc)
 		else:
-			new_entity = Entity.new(new_entity_position, entity_types.troll)
+			new_entity = Entity.new(dungeon, new_entity_position, entity_types.troll)
 		dungeon.entities.append(new_entity)
 
 # Actually generate a dungeon, also places character in middle of first room 
@@ -131,6 +131,7 @@ func generate_dungeon(player: Entity) -> MapData:
 		# If this is first room, set player position
 		if rooms.is_empty():
 			player.grid_position = new_room.get_center()
+			player.map_data = dungeon
 		# If this isn't the first room... 
 		# Create a tunnel between last room made and this one
 		else:
