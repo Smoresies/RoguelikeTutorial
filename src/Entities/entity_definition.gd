@@ -9,3 +9,6 @@ extends Resource
 @export_category("Mechanics")
 @export var is_blocking_movement: bool = true
 
+@export_category("Components")
+@export var fighter_definition: FighterComponentDefinition
+@export var ai_type: Entity.AIType

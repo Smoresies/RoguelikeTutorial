@@ -7,11 +7,14 @@ const tile_types = {
 	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
 }
 
+const entity_pathfinding_weight = 10.0
+
 # Basic Data for size of map + array of all tiles in map
 var width: int
 var height: int
 var tiles: Array[Tile]
 var entities: Array[Entity]
+var pathfinder: AStarGrid2D
 
 # Setup map sizes, then make tiles based on _setup_tiles()
 func _init(map_width: int, map_height: int) -> void:
@@ -61,3 +64,23 @@ func get_blocking_entity_at_location(grid_position: Vector2i) -> Entity:
 		if entity.is_blocking_movement() and entity.grid_position == grid_position:
 			return entity
 	return null
+
+func register_blocking_entity(entity: Entity) -> void:
+	pathfinder.set_point_weight_scale(entity.grid_position, entity_pathfinding_weight)
+
+
+func unregister_blocking_entity(entity: Entity) -> void:
+	pathfinder.set_point_weight_scale(entity.grid_position, 0)
+
+func setup_pathfinding() -> void:
+	pathfinder = AStarGrid2D.new()
+	pathfinder.region = Rect2i(0, 0, width, height)
+	pathfinder.update()
+	for y in height:
+		for x in width:
+			var grid_position := Vector2i(x, y)
+			var tile: Tile = get_tile(grid_position)
+			pathfinder.set_point_solid(grid_position, not tile.is_walkable())
+	for entity in entities:
+		if entity.is_blocking_movement():
+			register_blocking_entity(entity)

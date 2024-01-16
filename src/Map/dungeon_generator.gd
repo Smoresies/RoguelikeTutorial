@@ -143,4 +143,5 @@ func generate_dungeon(player: Entity) -> MapData:
 		# Add newly made room to array
 		rooms.append(new_room)
 	
+	dungeon.setup_pathfinding()
 	return dungeon
