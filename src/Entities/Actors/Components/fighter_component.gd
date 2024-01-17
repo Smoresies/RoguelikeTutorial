@@ -27,6 +27,7 @@ func die() -> void:
 	
 	if get_map_data().player == entity:
 		death_message = "You died!"
+		SignalBus.player_died.emit()
 	else:
 		death_message = "%s is dead!" % entity.get_entity_name()
 	
