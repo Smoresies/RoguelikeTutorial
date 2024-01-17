@@ -14,6 +14,7 @@ var width: int
 var height: int
 var tiles: Array[Tile]
 var entities: Array[Entity]
+var player: Entity
 var pathfinder: AStarGrid2D
 
 # Setup map sizes, then make tiles based on _setup_tiles()
@@ -75,6 +76,7 @@ func unregister_blocking_entity(entity: Entity) -> void:
 func setup_pathfinding() -> void:
 	pathfinder = AStarGrid2D.new()
 	pathfinder.region = Rect2i(0, 0, width, height)
+	pathfinder.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	pathfinder.update()
 	for y in height:
 		for x in width:
@@ -84,3 +86,18 @@ func setup_pathfinding() -> void:
 	for entity in entities:
 		if entity.is_blocking_movement():
 			register_blocking_entity(entity)
+
+
+func get_actors() -> Array[Entity]:
+	var actors: Array[Entity] = []
+	for entity in entities:
+		if entity.is_alive():
+			actors.append(entity)
+	return actors
+
+
+func get_actor_at_location(location: Vector2i) -> Entity:
+	for actor in get_actors():
+		if actor.grid_position == location:
+			return actor
+	return null

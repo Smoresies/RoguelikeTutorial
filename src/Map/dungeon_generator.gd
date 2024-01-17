@@ -132,6 +132,7 @@ func generate_dungeon(player: Entity) -> MapData:
 		if rooms.is_empty():
 			player.grid_position = new_room.get_center()
 			player.map_data = dungeon
+			dungeon.player = player
 		# If this isn't the first room... 
 		# Create a tunnel between last room made and this one
 		else:

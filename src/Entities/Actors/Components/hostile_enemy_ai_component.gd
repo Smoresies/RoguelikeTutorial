@@ -10,12 +10,13 @@ func perform() -> void:
 	
 	# Determine distance from Player
 	var offset: Vector2i = target_grid_position - entity.grid_position
-	var distance: int = max(abs(offset.x), abs(offset.y))
+	var distance: float = max(abs(offset.x), abs(offset.y))
 	
 	# If we're in view to player...
 	if get_map_data().get_tile(entity.grid_position).is_in_view:
 		# And in distance to attack, ATTACK!!!
-		if distance <= 1:
+		# Extra check to make sure distance is only orthogonally <= 1
+		if distance <= 1 and abs(offset.x) != abs(offset.y):
 			return MeleeAction.new(entity, offset.x, offset.y).perform()
 		
 		# Otherwise try to find point to the player

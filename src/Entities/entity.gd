@@ -3,9 +3,17 @@ extends Sprite2D
 
 enum AIType {NONE, HOSTILE}
 
+enum EntityType {CORPSE, ITEM, ACTOR}
+
+var type: EntityType:
+	set(value):
+		type = value
+		z_index = type
+
 var fighter_component: FighterComponent
 var ai_component: BaseAIComponent
-
+var entity_name: String
+var blocks_movement: bool
 var _definition: EntityDefinition
 var map_data: MapData
 
@@ -28,6 +36,9 @@ func move(move_offset: Vector2i) -> void:
 # Store defined type of entity
 func set_entity_type(entity_definition: EntityDefinition) -> void:
 	_definition = entity_definition
+	type = _definition.type
+	blocks_movement = _definition.is_blocking_movement
+	entity_name = _definition.name
 	texture = entity_definition.texture
 	modulate = entity_definition.color
 	
@@ -42,11 +53,12 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 
 # Getter for movement blocking
 func is_blocking_movement() -> bool:
-	return _definition.is_blocking_movement
+	return blocks_movement
 
-# Getter for entity name
+
 func get_entity_name() -> String:
-	return _definition.name
+	return entity_name
+	
 
 func is_alive() -> bool:
 	return ai_component != null

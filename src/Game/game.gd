@@ -34,7 +34,6 @@ func get_map_data() -> MapData:
 
 # Do AI stuff for enemies
 func _handle_enemy_turns() -> void:
-	for entity in get_map_data().entities:
-		if entity == player:
-			continue
-		print("The %s wonders when it will get to take a real turn." % entity.get_entity_name())
+	for entity in get_map_data().get_actors():
+		if entity.is_alive() and entity != player:
+			entity.ai_component.perform()
