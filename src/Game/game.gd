@@ -20,6 +20,10 @@ func _ready() -> void:
 	player.add_child(camera)
 	map.generate(player)
 	map.update_fov(player.grid_position)
+	MessageLog.send_message.bind(
+		"Hello and welcome, adventurer, to yet another dungeon!",
+		GameColors.WELCOME_TEXT
+	).call_deferred()
 
 # process to handle actions
 func _physics_process(_delta: float) -> void:

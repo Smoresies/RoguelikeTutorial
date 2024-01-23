@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://i6j647titimq"]
+[gd_scene load_steps=17 format=3 uid="uid://i6j647titimq"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_elu05"]
 [ext_resource type="Script" path="res://src/Game/main_game_input_handler.gd" id="2_18l23"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c4ko78yo0ms88" path="res://assets/images/kenny_1-bit-pack/monochrome_packed.png" id="8_cmfbu"]
 [ext_resource type="FontFile" uid="uid://da5isaicugvav" path="res://assets/fonts/Kenney Pixel.ttf" id="9_7386e"]
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_mbqbv"]
+[ext_resource type="Script" path="res://src/Gui/message_log.gd" id="11_6a475"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qute2"]
 content_margin_left = 8.0
@@ -138,5 +139,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_kmgpe")
+
+[node name="MessageLog" type="ScrollContainer" parent="VBoxContainer/InfoBar/MessagesPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("11_6a475")
+
+[node name="MessageList" type="VBoxContainer" parent="VBoxContainer/InfoBar/MessagesPanel/MessageLog"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Game" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" method="initialize"]
