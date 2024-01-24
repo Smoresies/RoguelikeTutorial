@@ -16,7 +16,8 @@ func perform() -> void:
 	var attack_description: String = "%s attacks %s" % [entity.get_entity_name(), target.get_entity_name()]
 	if damage > 0:
 		attack_description += " for %d hit points." % damage
+		MessageLog.send_message(attack_description, attack_color)
 		target.fighter_component.hp -= damage
 	else:
 		attack_description += " but does no damage."
-	MessageLog.send_message(attack_description, attack_color)
+		MessageLog.send_message(attack_description, attack_color)
