@@ -1,6 +1,8 @@
 class_name MapData
 extends RefCounted
 
+signal entity_placed(entity)
+
 # Dictionary that defines floor/wall to a specific tile in our file directory.
 const tile_types = {
 	"floor": preload("res://assets/definitions/tiles/tile_definition_floor.tres"),

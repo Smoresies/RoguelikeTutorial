@@ -13,6 +13,7 @@ var type: EntityType:
 var fighter_component: FighterComponent
 var ai_component: BaseAIComponent
 var consumable_component: ConsumableComponent
+var inventory_component: InventoryComponent
 
 var entity_name: String
 var blocks_movement: bool
@@ -57,6 +58,9 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 		if entity_definition.consumable_definition is HealingConsumableComponentDefinition:
 			consumable_component = HealingConsumableComponent.new(entity_definition.consumable_definition)
 			add_child(consumable_component)
+	if entity_definition.inventory_capacity > 0:
+		inventory_component = InventoryComponent.new(entity_definition.inventory_capacity)
+		add_child(inventory_component)
 
 
 # Getter for movement blocking
