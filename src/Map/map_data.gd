@@ -103,3 +103,11 @@ func get_actor_at_location(location: Vector2i) -> Entity:
 		if actor.grid_position == location:
 			return actor
 	return null
+
+
+func get_items() -> Array[Entity]:
+	var items: Array[Entity] = []
+	for entity in entities:
+		if entity.consumable_component != null:
+			items.append(entity)
+	return items
