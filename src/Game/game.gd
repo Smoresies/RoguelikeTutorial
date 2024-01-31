@@ -27,13 +27,13 @@ func _ready() -> void:
 
 # process to handle actions
 func _physics_process(_delta: float) -> void:
-	var action: Action = input_handler.get_action(player)
+	var action: Action = await input_handler.get_action(player)
 	if action:
 		var previous_player_position: Vector2i = player.grid_position
-		action.perform()
-		_handle_enemy_turns()
-		if player.grid_position != previous_player_position:
+		if action.perform():
+			_handle_enemy_turns()
 			map.update_fov(player.grid_position)
+			
 
 # helper function to return the mapdata
 func get_map_data() -> MapData:

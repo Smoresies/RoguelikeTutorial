@@ -12,15 +12,17 @@ var type: EntityType:
 
 var fighter_component: FighterComponent
 var ai_component: BaseAIComponent
+var consumable_component: ConsumableComponent
+
 var entity_name: String
 var blocks_movement: bool
 var _definition: EntityDefinition
 var map_data: MapData
 
-func _init(map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
+func _init(_map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
 	centered = false
 	grid_position = start_position
-	self.map_data = map_data
+	self.map_data = _map_data
 	set_entity_type(entity_definition)
 	
 var grid_position: Vector2i:
@@ -50,6 +52,12 @@ func set_entity_type(entity_definition: EntityDefinition) -> void:
 	if entity_definition.fighter_definition:
 		fighter_component = FighterComponent.new(entity_definition.fighter_definition)
 		add_child(fighter_component)
+		
+	if entity_definition.consumable_definition:
+		if entity_definition.consumable_definition is HealingConsumableComponentDefinition:
+			consumable_component = HealingConsumableComponent.new(entity_definition.consumable_definition)
+			add_child(consumable_component)
+
 
 # Getter for movement blocking
 func is_blocking_movement() -> bool:

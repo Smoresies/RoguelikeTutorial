@@ -9,9 +9,9 @@
 [ext_resource type="Script" path="res://src/Map/field_of_view.gd" id="5_2x6gi"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/history_viewer_input_handler.gd" id="5_o58hp"]
 [ext_resource type="Texture2D" uid="uid://c4ko78yo0ms88" path="res://assets/images/kenny_1-bit-pack/monochrome_packed.png" id="8_cmfbu"]
-[ext_resource type="Script" path="res://src/Gui/mouseover_checker.gd" id="9_4ndrp"]
+[ext_resource type="Script" path="res://src/GUI/mouseover_checker.gd" id="9_4ndrp"]
 [ext_resource type="FontFile" uid="uid://da5isaicugvav" path="res://assets/fonts/Kenney Pixel.ttf" id="9_7386e"]
-[ext_resource type="Script" path="res://src/Gui/hp_display.gd" id="9_mbqbv"]
+[ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_mbqbv"]
 [ext_resource type="Script" path="res://src/Gui/message_log.gd" id="11_6a475"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qute2"]
