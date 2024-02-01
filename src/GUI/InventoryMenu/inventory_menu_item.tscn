@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://fjwmxtg5x3vf"]
+
+[ext_resource type="FontFile" uid="uid://da5isaicugvav" path="res://assets/fonts/Kenney Pixel.ttf" id="1_djyb0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t78ic"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sley5"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[node name="InventoryMenuButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_djyb0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t78ic")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sley5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sley5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_t78ic")
+theme_override_styles/focus = SubResource("StyleBoxFlat_sley5")
+shortcut_feedback = false
+alignment = 0
