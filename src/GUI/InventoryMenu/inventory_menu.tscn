@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://btnmlvtpltm34"]
+[gd_scene load_steps=7 format=3 uid="uid://btnmlvtpltm34"]
 
+[ext_resource type="Script" path="res://src/Gui/InventoryMenu/inventory_menu.gd" id="1_0wn46"]
 [ext_resource type="Texture2D" uid="uid://c4ko78yo0ms88" path="res://assets/images/kenny_1-bit-pack/monochrome_packed.png" id="1_itdpn"]
 [ext_resource type="FontFile" uid="uid://da5isaicugvav" path="res://assets/fonts/Kenney Pixel.ttf" id="2_bxaq2"]
 
@@ -22,6 +23,7 @@ font = ExtResource("2_bxaq2")
 color = Color(1, 1, 1, 1)
 
 [node name="InventoryMenu" type="CanvasLayer"]
+script = ExtResource("1_0wn46")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
