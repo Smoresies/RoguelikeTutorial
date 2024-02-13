@@ -31,6 +31,10 @@ func get_action(player: Entity) -> Action:
 		var selected_item: Entity = await get_item("Select an item to drop", player.inventory_component)
 		action = DropItemAction.new(player, selected_item)
 	
+	if Input.is_action_just_pressed("activate"):
+		var selected_item: Entity = await get_item("Select an item to use", player.inventory_component)
+		action = ItemAction.new(player, selected_item)
+	
 	if Input.is_action_just_pressed("quit") or Input.is_action_just_pressed("ui_back"):
 		action = EscapeAction.new(player)
 	

@@ -4,7 +4,7 @@ extends Action
 var item: Entity
 var target_position: Vector2i
 
-func _init(_entity: Entity, _item: Entity, _target_position = null) -> void:
+func _init(_entity: Entity, _item: Entity, _target_position = Vector2i.ZERO) -> void:
 	super._init(_entity)
 	self.item = _item
 	if not target_position is Vector2i:
