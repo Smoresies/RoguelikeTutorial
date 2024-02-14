@@ -10,6 +10,8 @@ const directions = {
 
 const inventory_menu_scene = preload("res://src/Gui/InventoryMenu/inventory_menu.tscn")
 
+@export var reticle: Reticle
+
 func get_action(player: Entity) -> Action:
 	var action: Action = null
 	
@@ -35,6 +37,9 @@ func get_action(player: Entity) -> Action:
 		var selected_item: Entity = await get_item("Select an item to use", player.inventory_component)
 		action = ItemAction.new(player, selected_item)
 	
+	if Input.is_action_just_pressed("look"):
+		await get_grid_position(player, 0)
+	
 	if Input.is_action_just_pressed("quit") or Input.is_action_just_pressed("ui_back"):
 		action = EscapeAction.new(player)
 	
@@ -50,3 +55,11 @@ func get_item(window_title: String, inventory: InventoryComponent) -> Entity:
 	await get_tree().physics_frame
 	get_parent().call_deferred("transition_to", InputHandler.InputHandlers.MAIN_GAME)
 	return selected_item
+
+
+func get_grid_position(player: Entity, radius: int) -> Vector2i:
+	get_parent().transition_to(InputHandler.InputHandlers.DUMMY)
+	var selected_position: Vector2i = await reticle.select_position(player, radius)
+	await get_tree().physics_frame
+	get_parent().call_deferred("transition_to", InputHandler.InputHandlers.MAIN_GAME)
+	return selected_position

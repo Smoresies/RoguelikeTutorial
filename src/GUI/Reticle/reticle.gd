@@ -40,3 +40,16 @@ func select_position(player: Entity, radius: int) -> Vector2i:
 	hide()
 	
 	return selected_position
+
+
+func _physics_process(delta: float) -> void:
+	var offset := Vector2i.ZERO
+	for direction in directions:
+		if Input.is_action_just_pressed(direction):
+			offset += directions[direction]
+	grid_position += offset
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		position_selected.emit(grid_position)
+	if Input.is_action_just_pressed("ui_back"):
+		position_selected.emit(Vector2i(-1, -1))

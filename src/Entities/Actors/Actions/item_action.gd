@@ -4,11 +4,11 @@ extends Action
 var item: Entity
 var target_position: Vector2i
 
-func _init(_entity: Entity, _item: Entity, _target_position = Vector2i.ZERO) -> void:
+func _init(_entity: Entity, _item: Entity, _target_position = null) -> void:
 	super._init(_entity)
 	self.item = _item
-	if not target_position is Vector2i:
-		target_position = entity.grid_position
+	if not _target_position is Vector2i:
+		_target_position = entity.grid_position
 	self.target_position = _target_position
 
 func get_target_actor() -> Entity:
