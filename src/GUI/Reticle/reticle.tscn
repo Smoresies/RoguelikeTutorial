@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6hucrpsq0vui"]
+
+[ext_resource type="Script" path="res://src/Gui/Reticle/reticle.gd" id="1_r2r37"]
+
+[sub_resource type="Animation" id="Animation_x7ht4"]
+resource_name = "Puls"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.498039), Color(1, 1, 1, 0), Color(1, 1, 1, 0.498039)]
+}
+
+[sub_resource type="Animation" id="Animation_sc2o3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Polygon2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.498039)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ckn48"]
+_data = {
+"Puls": SubResource("Animation_x7ht4"),
+"RESET": SubResource("Animation_sc2o3")
+}
+
+[node name="Reticle" type="Node2D"]
+z_index = 10
+z_as_relative = false
+script = ExtResource("1_r2r37")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.498039)
+polygon = PackedVector2Array(0, 0, 16, 0, 16, 16, 0, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ckn48")
+}
+autoplay = "Puls"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+process_callback = 0
