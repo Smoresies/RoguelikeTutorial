@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_p72qk"]
 script = ExtResource("1_3ct1o")
-number_of_turns = 5
+number_of_turns = 10
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7s7ko"]
 atlas = ExtResource("3_5rxww")

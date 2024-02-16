@@ -25,6 +25,7 @@ const entity_types = {
 	"health_potion": preload("res://assets/definitions/entities/items/health_potion_definition.tres"),
 	"lightning_scroll": preload("res://assets/definitions/entities/items/lightning_scroll_definition.tres"),
 	"confusion_scroll": preload("res://assets/definitions/entities/items/confusion_scroll_definition.tres"),
+	"fireball_scroll": preload("res://assets/definitions/entities/items/fireball_scroll_definition.tres"),
 }
 
 # On ready, just randomize
@@ -105,8 +106,10 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 		if can_place:
 			var item_chance: float = _rng.randf()
 			var new_entity: Entity
-			if item_chance < 0.2:
+			if item_chance < 0.5:
 				new_entity = Entity.new(dungeon, new_entity_position, entity_types.health_potion)
+			elif item_chance < 0.7:
+				new_entity = Entity.new(dungeon, new_entity_position, entity_types.fireball_scroll)
 			elif item_chance < 0.9:
 				new_entity = Entity.new(dungeon, new_entity_position, entity_types.confusion_scroll)
 			else:
