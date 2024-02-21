@@ -37,3 +37,7 @@ func perform() -> void:
 	
 	# If we have no path, then we just wait
 	return WaitAction.new(entity).perform()
+
+
+func get_save_data() -> Dictionary:
+	return {"type": "HostileEnemyAI"}

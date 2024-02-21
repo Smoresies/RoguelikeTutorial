@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://i6j647titimq"]
+[gd_scene load_steps=23 format=3 uid="uid://i6j647titimq"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_elu05"]
+[ext_resource type="Script" path="res://src/Game/game_root.gd" id="1_wia0c"]
 [ext_resource type="Script" path="res://src/Game/main_game_input_handler.gd" id="2_18l23"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_en2rd"]
 [ext_resource type="Script" path="res://src/Game/map.gd" id="3_8we3y"]
@@ -61,6 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wia0c")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -84,6 +86,7 @@ size = Vector2i(1152, 536)
 render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
 script = ExtResource("1_elu05")
 
 [node name="InputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
@@ -106,9 +109,17 @@ script = ExtResource("6_v840r")
 
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_8we3y")
+fov_radius = null
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_o5qxn")
+map_width = null
+map_height = null
+max_monsters_per_room = null
+max_items_per_room = null
+max_rooms = null
+room_max_size = null
+room_min_size = null
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_2x6gi")
