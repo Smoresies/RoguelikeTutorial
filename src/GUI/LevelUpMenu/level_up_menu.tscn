@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7r1dk5lr7yqj"]
+
+[ext_resource type="Script" path="res://src/Gui/LevelUpMenu/level_up_menu.gd" id="1_5kjrv"]
+[ext_resource type="Texture2D" uid="uid://c4ko78yo0ms88" path="res://assets/images/kenny_1-bit-pack/monochrome_packed.png" id="2_ww4rg"]
+[ext_resource type="PackedScene" uid="uid://fjwmxtg5x3vf" path="res://src/Gui/InventoryMenu/inventory_menu_item.tscn" id="3_bdn5f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aqf4c"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("2_ww4rg")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+region_rect = Rect2(768, 336, 16, 16)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8olfj"]
+color = Color(1, 1, 1, 1)
+
+[node name="LevelUpMenu" type="CanvasLayer"]
+script = ExtResource("1_5kjrv")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_aqf4c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Congratulations! You Leveled Up!
+Select an Attribute to Increase"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_8olfj")
+
+[node name="HealthUpgradeButton" parent="CenterContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_bdn5f")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PowerUpgradeButton" parent="CenterContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_bdn5f")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DefenseUpgradeButton" parent="CenterContainer/PanelContainer/VBoxContainer" instance=ExtResource("3_bdn5f")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/HealthUpgradeButton" to="." method="_on_health_upgrade_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/PowerUpgradeButton" to="." method="_on_power_upgrade_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/DefenseUpgradeButton" to="." method="_on_defense_upgrade_button_pressed"]
