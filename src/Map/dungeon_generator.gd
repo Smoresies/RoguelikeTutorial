@@ -106,56 +106,49 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 				new_entity = Entity.new(dungeon, new_entity_position, "lightning_scroll")
 			dungeon.entities.append(new_entity)
 
+
 # Actually generate a dungeon, also places character in middle of first room 
-func generate_dungeon(player: Entity) -> MapData:
-	var dungeon := MapData.new(map_width, map_height)
+func generate_dungeon(player: Entity, current_floor: int) -> MapData:
+	var dungeon := MapData.new(map_width, map_height, player)
+	dungeon.current_floor = current_floor
 	dungeon.entities.append(player)
 	
 	var rooms: Array[Rect2i] = []
+	var center_last_room: Vector2i
 	
-	# tries to make a room for max number of possible rooms, not all work
 	for _try_room in max_rooms:
-		# Size of room in dungeon
 		var room_width: int = _rng.randi_range(room_min_size, room_max_size)
 		var room_height: int = _rng.randi_range(room_min_size, room_max_size)
 		
-		# Location in dungeon
 		var x: int = _rng.randi_range(0, dungeon.width - room_width - 1)
 		var y: int = _rng.randi_range(0, dungeon.height - room_height - 1)
 		
-		# Create the Rect for room
 		var new_room := Rect2i(x, y, room_width, room_height)
 		
-		# Secret tool we use for later
 		var has_intersections := false
-		# For each created room...
 		for room in rooms:
-			# Check if it intersects with new room
-			if room.intersects(new_room.grow(-1)):
+			if room.intersects(new_room):
 				has_intersections = true
 				break
-		# If any intersected, cancel this room
 		if has_intersections:
 			continue
 		
-		# If we got this far we can make the new room.
 		_carve_room(dungeon, new_room)
+		center_last_room = new_room.get_center()
 		
-		# If this is first room, set player position
 		if rooms.is_empty():
 			player.grid_position = new_room.get_center()
 			player.map_data = dungeon
-			dungeon.player = player
-		# If this isn't the first room... 
-		# Create a tunnel between last room made and this one
 		else:
 			_tunnel_between(dungeon, rooms.back().get_center(), new_room.get_center())
 		
-		# Add any entities that would exist in this room.
 		_place_entities(dungeon, new_room)
 		
-		# Add newly made room to array
 		rooms.append(new_room)
+	
+	dungeon.down_stairs_location = center_last_room
+	var down_tile: Tile = dungeon.get_tile(center_last_room)
+	down_tile.set_tile_type("down_stairs")
 	
 	dungeon.setup_pathfinding()
 	return dungeon

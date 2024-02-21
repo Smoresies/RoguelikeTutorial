@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://i6j647titimq"]
+[gd_scene load_steps=25 format=3 uid="uid://i6j647titimq"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_elu05"]
 [ext_resource type="Script" path="res://src/Game/game_root.gd" id="1_wia0c"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://src/Gui/hp_display.gd" id="9_mbqbv"]
 [ext_resource type="Script" path="res://src/Gui/message_log.gd" id="11_6a475"]
 [ext_resource type="PackedScene" uid="uid://b6hucrpsq0vui" path="res://src/Gui/Reticle/reticle.tscn" id="11_aue8p"]
+[ext_resource type="Script" path="res://src/Gui/dungeon_floor_label.gd" id="16_xg7nw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qute2"]
 content_margin_left = 8.0
@@ -42,6 +43,11 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_iyqej"]
 font = ExtResource("9_7386e")
+
+[sub_resource type="LabelSettings" id="LabelSettings_e0uyt"]
+font = ExtResource("9_7386e")
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmgpe"]
 content_margin_left = 8.0
@@ -109,17 +115,9 @@ script = ExtResource("6_v840r")
 
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_8we3y")
-fov_radius = null
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_o5qxn")
-map_width = null
-map_height = null
-max_monsters_per_room = null
-max_items_per_room = null
-max_rooms = null
-room_max_size = null
-room_min_size = null
 
 [node name="FieldOfView" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("5_2x6gi")
@@ -173,6 +171,11 @@ layout_mode = 2
 size_flags_vertical = 10
 label_settings = SubResource("LabelSettings_iyqej")
 
+[node name="DungeonFloorLabel" type="Label" parent="VBoxContainer/InfoBar/StatsPanel/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_e0uyt")
+script = ExtResource("16_xg7nw")
+
 [node name="MessagesPanel" type="PanelContainer" parent="VBoxContainer/InfoBar"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -191,4 +194,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="player_created" from="VBoxContainer/SubViewportContainer/SubViewport/Game" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/HPDisplay" method="initialize"]
+[connection signal="dungeon_floor_changed" from="VBoxContainer/SubViewportContainer/SubViewport/Game/Map" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/DungeonFloorLabel" method="set_dungeon_floor"]
 [connection signal="entities_focussed" from="VBoxContainer/SubViewportContainer/SubViewport/Game/Map/MouseoverChecker" to="VBoxContainer/InfoBar/StatsPanel/VBoxContainer/MouseOverLabel" method="set_text"]
