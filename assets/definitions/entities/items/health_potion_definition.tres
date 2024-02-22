@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_m8dd1"]
 [ext_resource type="Texture2D" uid="uid://c4ko78yo0ms88" path="res://assets/images/kenny_1-bit-pack/monochrome_packed.png" id="3_6ggof"]
 
-[sub_resource type="Resource" id="Resource_qp35q"]
+[sub_resource type="Resource" id="Resource_yevoe"]
 script = ExtResource("1_j52do")
 healing_amount = 4
 
@@ -20,5 +20,5 @@ color = Color(0.87451, 0.321569, 0.368627, 1)
 is_blocking_movement = false
 type = 1
 ai_type = 0
-consumable_definition = SubResource("Resource_qp35q")
+item_definition = SubResource("Resource_yevoe")
 inventory_capacity = 0

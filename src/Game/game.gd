@@ -16,6 +16,8 @@ const level_up_menu_scene: PackedScene = preload("res://src/Gui/LevelUpMenu/leve
 # Init all the things!
 func new_game() -> void:
 	player = Entity.new(null, Vector2i.ZERO, "player")
+	_add_player_start_equipment("dagger")
+	_add_player_start_equipment("leather_armor")
 	player.level_component.level_up_required.connect(_on_player_level_up_requested)
 	player_created.emit(player)
 	remove_child(camera)
@@ -31,6 +33,7 @@ func new_game() -> void:
 
 func load_game() -> bool:
 	player = Entity.new(null, Vector2i.ZERO, "")
+	
 	remove_child(camera)
 	player.add_child(camera)
 	if not map.load_game(player):
@@ -74,3 +77,9 @@ func _on_player_level_up_requested() -> void:
 	set_physics_process(false)
 	await level_up_menu.level_up_completed
 	set_physics_process.bind(true).call_deferred()
+
+
+func _add_player_start_equipment(item_key: String) -> void:
+	var item := Entity.new(null, Vector2i.ZERO, item_key)
+	player.inventory_component.items.append(item)
+	player.equipment_component.toggle_equip(item, false)

@@ -10,7 +10,7 @@
 script = ExtResource("1_c0by1")
 max_hp = 30
 power = 5
-defense = 2
+defense = 0
 death_texture = ExtResource("1_x8e57")
 death_color = Color(0.545098, 0, 0, 1)
 
@@ -35,3 +35,4 @@ fighter_definition = SubResource("Resource_sgyfx")
 ai_type = 1
 inventory_capacity = 26
 level_info = SubResource("Resource_dvqw4")
+has_equipment = true

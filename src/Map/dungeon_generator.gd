@@ -30,8 +30,8 @@ const max_monsters_by_floor = [
 const item_chances = {
 	0: {"health_potion": 35},
 	2: {"confusion_scroll": 10},
-	4: {"lightning_scroll": 25},
-	6: {"fireball_scroll": 25},
+	4: {"lightning_scroll": 25, "sword": 5},
+	6: {"fireball_scroll": 25, "chainmail": 15},
 }
 
 # Same as Enemy Chances, but noting that the "troll" gets overridden not added
