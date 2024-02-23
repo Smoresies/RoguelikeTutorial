@@ -47,18 +47,6 @@ func get_action(player: Entity) -> Action:
 	
 	return action
 
-#
-#func get_item(window_title: String, inventory: InventoryComponent, evaluate_for_next_step: bool = false) -> Entity:
-	#var inventory_menu: InventoryMenu = inventory_menu_scene.instantiate()
-	#add_child(inventory_menu)
-	#inventory_menu.build(window_title, inventory)
-	#get_parent().transition_to(InputHandler.InputHandlers.DUMMY)
-	#var selected_item: Entity = await inventory_menu.item_selected
-	#if not evaluate_for_next_step or selected_item == null or (selected_item and selected_item.consumable_component and selected_item.consumable_component.get_targeting_radius() == -1):
-		#await get_tree().physics_frame
-		#get_parent().call_deferred("transition_to", InputHandler.InputHandlers.MAIN_GAME)
-	#return selected_item
-
 
 func get_item(window_title: String, inventory: InventoryComponent, evaluate_for_next_step: bool = false) -> Entity:
 	if inventory.items.is_empty():

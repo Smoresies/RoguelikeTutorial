@@ -74,7 +74,10 @@ func set_entity_type(_key: String) -> void:
 			add_child(ai_component)
 	
 	if entity_definition.fighter_definition:
-		fighter_component = FighterComponent.new(entity_definition.fighter_definition)
+		if entity_definition.fighter_definition is OrcComponentDefinition:
+			fighter_component = await OrcComponent.new(entity_definition.fighter_definition)
+		else:
+			fighter_component = FighterComponent.new(entity_definition.fighter_definition)
 		add_child(fighter_component)
 		
 	var item_definition: ItemComponentDefinition = entity_definition.item_definition
