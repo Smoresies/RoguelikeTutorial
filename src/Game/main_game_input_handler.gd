@@ -26,9 +26,6 @@ func get_action(player: Entity) -> Action:
 	if Input.is_action_just_pressed("view_history"):
 		get_parent().transition_to(InputHandler.InputHandlers.HISTORY_VIEWER)
 	
-	if Input.is_action_just_pressed("pickup"):
-		action = PickupAction.new(player)	
-	
 	if Input.is_action_just_pressed("drop"):
 		var selected_item: Entity = await get_item("Select an item to drop", player.inventory_component)
 		action = DropItemAction.new(player, selected_item)
@@ -36,8 +33,9 @@ func get_action(player: Entity) -> Action:
 	if Input.is_action_just_pressed("activate"):
 		action = await activate_item(player)
 	
+	# Currently handles: pickup, stairs, ...
 	if Input.is_action_just_pressed("interact"):
-		action = TakeStairsAction.new(player)
+		action = InteractAction.new(player)
 	
 	if Input.is_action_just_pressed("look"):
 		await get_grid_position(player, 0)
@@ -87,3 +85,5 @@ func activate_item(player: Entity) -> Action:
 	if target_position == Vector2i(-1, -1):
 		return null
 	return ItemAction.new(player, selected_item, target_position)
+
+		

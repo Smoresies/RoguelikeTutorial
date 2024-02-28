@@ -1,6 +1,7 @@
 class_name TakeStairsAction
 extends Action
 
+# DEPRECATED AND REPLACED WITH InteractAction
 
 func perform() -> bool:
 	if entity.grid_position == get_map_data().down_stairs_location:

@@ -1,6 +1,7 @@
 class_name PickupAction
 extends Action
 
+# DEPRECATED AND REPLACED WITH InteractAction
 
 func perform() -> bool:
 	if not entity.inventory_component:
