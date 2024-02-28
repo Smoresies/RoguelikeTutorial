@@ -13,11 +13,14 @@ const multipliers = [
 
 var _fov: Array[Tile] = []
 
+@export var enemy_radius: int = 8
+
 
 func update_fov(map_data: MapData, origin: Vector2i, radius: int) -> void:
 	_clear_fov()
 	var start_tile: Tile = map_data.get_tile(origin)
 	start_tile.is_in_view = true
+	start_tile.is_lit = true
 	_fov = [start_tile]
 	for i in 8:
 		_cast_light(map_data, origin.x, origin.y, radius, 1, 1.0, 0.0, multipliers[0][i], multipliers[1][i], multipliers[2][i], multipliers[3][i])
@@ -26,6 +29,7 @@ func update_fov(map_data: MapData, origin: Vector2i, radius: int) -> void:
 func _clear_fov() -> void:
 	for tile in _fov:
 		tile.is_in_view = false
+		tile.is_lit = false
 	_fov = []
 
 
@@ -37,7 +41,7 @@ func _cast_light(map_data: MapData, x: int, y: int, radius: int, row: int, start
 	if start_slope < end_slope:
 		return
 	var next_start_slope: float = start_slope
-	for i in range(row, radius + 1):
+	for i in range(row, enemy_radius + 1):
 		var blocked: bool = false
 		var dy: int = -i
 		for dx in range(-i, 1):
@@ -55,10 +59,13 @@ func _cast_light(map_data: MapData, x: int, y: int, radius: int, row: int, start
 			var ay: int = y + say
 			if ax >= map_data.width or ay >= map_data.height:
 				continue
-			var radius2: int = radius * radius
+			var radius2: int = enemy_radius * enemy_radius
 			var current_tile: Tile = map_data.get_tile_xy(ax, ay)
 			if (dx * dx + dy * dy) < radius2:
-				current_tile.is_in_view = true
+				current_tile.is_in_view = true # Enemy behavior movement
+				var radius3 = radius * radius # The sight radius
+				if (dx * dx + dy * dy) <= radius3:
+					current_tile.is_lit = true # The "new" way to make it visible
 				_fov.append(current_tile)
 			if blocked:
 				if not current_tile.is_transparent():

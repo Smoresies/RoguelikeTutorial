@@ -23,8 +23,15 @@ var is_explored: bool = false:
 var is_in_view: bool = false:
 	set(value):
 		is_in_view = value
-		modulate = _definition.color_lit if is_in_view else _definition.color_dark
-		if is_in_view and not is_explored:
+		#modulate = _definition.color_lit if is_in_view else _definition.color_dark
+		#if is_in_view and not is_explored:
+			#is_explored = true
+
+var is_lit: bool = false:
+	set(value):
+		is_lit = value
+		modulate = _definition.color_lit if is_lit else _definition.color_dark
+		if is_lit and not is_explored:
 			is_explored = true
 
 func _init(grid_position: Vector2i, _key: String) -> void:

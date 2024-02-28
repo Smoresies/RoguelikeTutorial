@@ -21,7 +21,7 @@ func get_names_at_location(grid_position: Vector2i) -> String:
 	var entity_names := ""
 	var map_data: MapData = map.map_data
 	var tile: Tile = map_data.get_tile(grid_position)
-	if not tile or not tile.is_in_view:
+	if not tile or not tile.is_lit:
 		return entity_names
 	var entities_at_location: Array[Entity] = []
 	for entity in map_data.entities:
