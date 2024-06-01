@@ -132,7 +132,6 @@ script = ExtResource("6_v840r")
 
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_8we3y")
-fov_radius = 0
 
 [node name="DungeonGenerator" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map"]
 script = ExtResource("4_o5qxn")
